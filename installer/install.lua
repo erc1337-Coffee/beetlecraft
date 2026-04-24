@@ -1,7 +1,7 @@
 local BASE = "https://raw.githubusercontent.com/erc1337-Coffee/beetlecraft/main"
 local FILES = {
     ".env",
-    "README",
+    "README.md",
     "VERSION",
     "assets/nfp/black_widow.nfp",
     "assets/nfp/bombardier.nfp",
@@ -72,7 +72,9 @@ su.write('shell.run("cd beetlecraft && main")')
 su.close()
 print("[ok] startup -> /beetlecraft/main")
 
--- Persist install origin for the updater (fork-safe)
+-- Persist install origin for the updater
+-- This way if you fork and use your own code, you won't fetch 
+-- updates against the default repo but from yours
 local mf = fs.open("beetlecraft/.install.meta", "w")
 mf.write("BASE=" .. BASE .. "\n")
 mf.close()
