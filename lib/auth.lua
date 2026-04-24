@@ -22,23 +22,29 @@ end
 
 local function saveRefreshToken()
     local path = envPath()
-    local extra = {}
+    local lines, found = {}, false
     if fs.exists(path) then
         local rf = fs.open(path, "r")
         if rf then
-            for line in rf.readAll():gmatch("[^\n]+") do
-                local k = line:match("^(%S+)=")
-                if k and k ~= "REFRESH_TOKEN" then
-                    extra[#extra + 1] = line
+            local data = rf.readAll()
+            rf.close()
+            for line in (data .. "\n"):gmatch("([^\n]*)\n") do
+                if line:match("^REFRESH_TOKEN=") then
+                    lines[#lines + 1] = "REFRESH_TOKEN=" .. (refresh_token or "")
+                    found = true
+                else
+                    lines[#lines + 1] = line
                 end
             end
-            rf.close()
+            if lines[#lines] == "" then lines[#lines] = nil end
         end
+    end
+    if not found then
+        lines[#lines + 1] = "REFRESH_TOKEN=" .. (refresh_token or "")
     end
     local f = fs.open(path, "w")
     if not f then return end
-    f.write("REFRESH_TOKEN=" .. (refresh_token or "") .. "\n")
-    for _, line in ipairs(extra) do f.write(line .. "\n") end
+    f.write(table.concat(lines, "\n") .. "\n")
     f.close()
 end
 
