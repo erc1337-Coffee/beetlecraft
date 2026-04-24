@@ -1,0 +1,2 @@
+-- ComputerCraft autorun
+shell.run("main")
