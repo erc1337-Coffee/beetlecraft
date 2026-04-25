@@ -68,7 +68,8 @@ end
 
 -- Write startup to root so beetlecraft runs on boot
 local su = fs.open("startup", "w")
-su.write('shell.run("cd beetlecraft && main")')
+su.write('shell.run("cd beetlecraft")')
+su.write('shell.run("main")')
 su.close()
 print("[ok] startup -> /beetlecraft/main")
 
