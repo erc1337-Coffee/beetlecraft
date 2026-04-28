@@ -12,7 +12,7 @@ local function httpGetJSON(url)
 end
 
 local function fetchProfile(username)
-    local res, err = http.get(REMILIA_BASE .. "/apiv2/profile/~" .. username)
+    local res, err = http.get(REMILIA_BASE .. "/api/profile/~" .. username)
     if not res then return nil, (err or "request failed") end
     local body = res.readAll()
     res.close()
