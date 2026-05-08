@@ -31,7 +31,7 @@ local function fetchProfile(username)
         pageViews         = u.pageViews,
         pokes             = u.pokes,
         beetles           = u.beetles,
-        socialCreditScore = u.socialCredit and u.socialCredit.score,
+        socialCredit      = u.socialCredit,
         pfpProject        = u.pfp and u.pfp.project,
     }
 end
